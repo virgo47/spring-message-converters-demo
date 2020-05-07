@@ -35,7 +35,9 @@ public class StorageController {
 
     @GetMapping
     public Collection<Box> listBoxes() {
-        return boxes.values();
+        Collection<Box> boxes = this.boxes.values();
+        System.out.println("Returning " + boxes.size() + " boxes");
+        return boxes;
     }
 
     private void addBox(Box box) {
