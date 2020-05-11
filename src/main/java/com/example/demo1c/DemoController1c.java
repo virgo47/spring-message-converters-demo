@@ -1,4 +1,4 @@
-package com.example.demo1b;
+package com.example.demo1c;
 
 import java.time.LocalTime;
 import java.util.Collection;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @RestController
-public class DemoController1b {
+public class DemoController1c {
 
   // http -v :8080
   @GetMapping
@@ -42,21 +42,15 @@ public class DemoController1b {
   @Autowired(required = false)
   private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
-  @Autowired(required = false)
-  private ApplicationContext applicationContext;
-
-  // NPE protection is needed here, applicationContext can be used in breakpoint
   @GetMapping("config")
-  public void config() {
-    System.out.println(Map.of(
+  public Map<?, ?> config() {
+    return Map.of(
       "configurers",
       toStrings(configurers),
       "converters",
       toStrings(converters),
       "requestMappingHandlerAdapter-converters",
-      toStrings(requestMappingHandlerAdapter != null
-        ? requestMappingHandlerAdapter.getMessageConverters()
-        : null)));
+      toStrings(requestMappingHandlerAdapter.getMessageConverters()));
   }
 
   private Object toStrings(Collection<?> collection) {

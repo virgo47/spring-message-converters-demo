@@ -44,10 +44,8 @@ public class DemoController1 {
   @GetMapping("config")
   public Map<?, ?> config() {
     return Map.of(
-      "configurers",
-      toStrings(configurers),
-      "converters",
-      toStrings(converters),
+      "configurers", toStrings(configurers),
+      "converters", toStrings(converters),
       "requestMappingHandlerAdapter-converters",
       toStrings(requestMappingHandlerAdapter.getMessageConverters()));
   }

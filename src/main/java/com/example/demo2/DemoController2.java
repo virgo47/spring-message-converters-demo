@@ -56,6 +56,6 @@ public class DemoController2 {
   private Object toStrings(Collection<?> collection) {
     return collection != null
       ? collection.stream().map(Object::toString).collect(Collectors.toList())
-      : "null";
+      : "N/A";
   }
 }

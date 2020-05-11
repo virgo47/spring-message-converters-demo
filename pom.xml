@@ -5,15 +5,15 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.6.RELEASE</version>
+    <version>2.2.7.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>com.example</groupId>
   <artifactId>boot-demo-java</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>boot-demo-java</name>
-  <description>Demo project for Spring Boot</description>
+  <name>spring-message-converters-demo</name>
+  <description>Demo project for experiments with HTTP message converters under Spring Boot</description>
 
   <properties>
     <java.version>11</java.version>

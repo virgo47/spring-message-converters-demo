@@ -55,6 +55,6 @@ public class DemoController3 {
   private Object toStrings(Collection<?> collection) {
     return collection != null
       ? collection.stream().map(Object::toString).toArray(String[]::new)
-      : "null";
+      : "N/A";
   }
 }

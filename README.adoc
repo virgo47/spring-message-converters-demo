@@ -6,6 +6,8 @@ This repository contains multiple miniature Spring Boot applications in separate
 
 * `demo1b` - `demo1` with disabled `WebMvcAutoConfiguration`, very limited message conversions.
 
+* `demo1c` - `demo1` again but with `@EnableWebMvc`, now things work again, but configuration is a bit different.
+
 * `demo2` - `demo1` but with custom `@Configuration` implementing `WebMvcConfigurer` added.
 This one does not disable auto-configuration and more than expected number of converters are used.
 
