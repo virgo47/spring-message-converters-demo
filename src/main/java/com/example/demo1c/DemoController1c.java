@@ -42,7 +42,7 @@ public class DemoController1c {
   @Autowired(required = false)
   private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
-  @GetMapping("config")
+  @GetMapping("/config")
   public Map<?, ?> config() {
     return Map.of(
       "configurers",

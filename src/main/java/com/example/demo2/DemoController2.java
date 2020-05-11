@@ -24,7 +24,7 @@ public class DemoController2 {
     return "Hi, it's " + LocalTime.now();
   }
 
-  @GetMapping("list")
+  @GetMapping("/list")
   public Collection<?> list() {
     return List.of(
       "String1",
@@ -42,7 +42,7 @@ public class DemoController2 {
   @Autowired
   private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
-  @GetMapping("config")
+  @GetMapping("/config")
   public Map<?, ?> config() {
     return Map.of(
       "configurers",

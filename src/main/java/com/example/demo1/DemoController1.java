@@ -41,7 +41,7 @@ public class DemoController1 {
   @Autowired
   private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
-  @GetMapping("config")
+  @GetMapping("/config")
   public Map<?, ?> config() {
     return Map.of(
       "configurers", toStrings(configurers),
