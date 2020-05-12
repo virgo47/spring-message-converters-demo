@@ -5,12 +5,19 @@ This repository contains multiple miniature Spring Boot applications in separate
 * `demo1` - default Spring Boot + Web MVC auto-configuration with a few REST endpoints.
 
 * `demo1b` - `demo1` with disabled `WebMvcAutoConfiguration`, very limited message conversions.
+This setup is hardly usable, demonstrates we need something replacing the auto-configuration.
 
 * `demo1c` - `demo1` again but with `@EnableWebMvc`, now things work again, but configuration is a bit different.
+Less converters are registered and probably more things beyond converter setup are missing.
 
 * `demo2` - `demo1` but with custom `@Configuration` implementing `WebMvcConfigurer` added.
 This one does not disable auto-configuration and more than expected number of converters are used.
+There is
 
 * `demo2b` - like `demo2`, but this time we use `@EnableWebMvc` and take full responsibility for the setup.
 
-* `demo3` - TODO: customization of order when multiple converters match.
+* `demo2c` - like `demo2b`, but the converter is configured as `@Bean` (Spring-managed component).
+
+* `demo2d` - like `demo2c`, converters as `@Bean`s but with auto-configuration, config class can get very small now.
+
+* `demo3` - similar to `demo2`, this time the configuration extends `WebMvcConfigurationSupport`.

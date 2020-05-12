@@ -1,15 +1,14 @@
-package com.example.demo2b;
+package com.example.demo2d;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.util.StreamUtils;
@@ -17,34 +16,32 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * {@code @EnableWebMvc} on the main class (also a configuration) disables {@code WebMvcAutoConfiguration}.
- * With this annotation we declared we want to take the full responsibility for the configuration.
- * Whether default converters are added depends on whether {@link #configureContentNegotiation}
- * or {@link #extendHandlerExceptionResolvers} is used - see their javadocs for details.
+ * Configuration declaring our controllers as beans.
+ * With auto-configuration we don't have to do anything else.
  */
 @Configuration
-public class DemoConfig2b implements WebMvcConfigurer {
+public class DemoConfig2d implements WebMvcConfigurer {
 
   private static final MediaType CRAZY1 = MediaType.valueOf("crazy/1");
 
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    System.out.println("configureMessageConverters.size(): " + converters.size());
-    converters.add(new Crazy1Converter<>("first", String.class));
-    converters.add(new Crazy1Converter<>("second", Object.class));
+  @Bean
+  public Crazy1Converter<String> crazyStringConverter() {
+    return new Crazy1Converter<>("first", String.class);
   }
 
-  @Override
-  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-    System.out.println("extendMessageConverters.size(): " + converters.size());
+  @Bean
+  public Crazy1Converter<Object> crazyObjectConverter() {
+    return new Crazy1Converter<>("second", Object.class);
   }
 
+  // Only needed if we want to adjust default content type order.
+  // No mediaType() mapping is needed, this is already taken care of by auto-config.
+  /*
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-    configurer.mediaType(CRAZY1.getSubtype(), CRAZY1);
-    // uncomment this to use the content type as default
-//    configurer.defaultContentType(CRAZY1);
+    configurer.defaultContentType(MediaType.APPLICATION_JSON);
   }
+  */
 
   private static class Crazy1Converter<T> extends AbstractHttpMessageConverter<T> {
 
@@ -60,11 +57,6 @@ public class DemoConfig2b implements WebMvcConfigurer {
     @Override
     protected boolean supports(Class clazz) {
       return supportedClass.isAssignableFrom(clazz);
-    }
-
-    @Override
-    public boolean canRead(Class<?> clazz, MediaType mediaType) {
-      return false;
     }
 
     @Override

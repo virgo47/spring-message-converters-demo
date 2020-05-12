@@ -29,19 +29,22 @@ public class DemoConfig2 implements WebMvcConfigurer {
   private static final MediaType CRAZY1 = MediaType.valueOf("crazy/1");
 
   @Override
-  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-//  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     System.out.println("configureMessageConverters.size(): " + converters.size());
-
-    // crazy converter
     converters.add(new Crazy1Converter<>("first", String.class));
     converters.add(new Crazy1Converter<>("second", Object.class));
   }
 
   @Override
+  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    System.out.println("extendMessageConverters.size(): " + converters.size());
+  }
+
+  @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
     configurer.mediaType(CRAZY1.getSubtype(), CRAZY1);
-    configurer.defaultContentType(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
+    // not necessary for this example
+//    configurer.defaultContentType(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
   }
 
   private static class Crazy1Converter<T> extends AbstractHttpMessageConverter<T> {

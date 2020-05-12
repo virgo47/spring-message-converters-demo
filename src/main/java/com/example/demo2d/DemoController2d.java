@@ -1,9 +1,10 @@
-package com.example.demo3;
+package com.example.demo2d;
 
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @RestController
 @RequestMapping
-public class DemoController3 {
+public class DemoController2d {
 
   @GetMapping
   public String hello() {
@@ -31,7 +32,7 @@ public class DemoController3 {
   }
 
   // DEBUG area
-  @Autowired(required = false)
+  @Autowired
   private List<WebMvcConfigurer> configurers;
 
   @Autowired
@@ -53,7 +54,7 @@ public class DemoController3 {
 
   private Object toStrings(Collection<?> collection) {
     return collection != null
-      ? collection.stream().map(Object::toString).toArray(String[]::new)
+      ? collection.stream().map(Object::toString).collect(Collectors.toList())
       : "N/A";
   }
 }
