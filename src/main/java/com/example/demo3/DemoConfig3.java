@@ -3,10 +3,9 @@ package com.example.demo3;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -15,7 +14,6 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -23,45 +21,42 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class DemoConfig3 extends WebMvcConfigurationSupport {
 
-  private static final List<MediaType> YAML_MEDIA_TYPES = List.of(
-    MediaType.valueOf("text/yaml"), MediaType.valueOf("text/yml"),
-    MediaType.valueOf("text/x-yaml"), MediaType.valueOf("text/vnd-yaml"),
-    MediaType.valueOf("application/yaml"), MediaType.valueOf("application/x-yaml"));
-
   private static final MediaType CRAZY1 = MediaType.valueOf("crazy/1");
 
-  @PostConstruct
-  public void init() {
-    System.out.println("HERE");
-  }
+  // necessary for commented addAll in extendMessageConverters
+  @Autowired
+  private List<Crazy1Converter<?>> crazy1Converters;
 
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.clear();
-    ObjectMapper yamlMapper = new YAMLMapper();
-    MappingJackson2HttpMessageConverter yamlConverter =
-      new MappingJackson2HttpMessageConverter(yamlMapper);
-    yamlConverter.setSupportedMediaTypes(YAML_MEDIA_TYPES);
-    converters.add(yamlConverter);
+    System.out.println("configureMessageConverters.size(): " + converters.size());
+  }
 
-    // crazy converter
-    converters.add(new Crazy1Converter<>("first", String.class));
-    converters.add(new Crazy1Converter<>("second", Object.class));
-
-    // optionally - but after our converters!
-    addDefaultHttpMessageConverters(converters);
+  @Override
+  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    System.out.println("extendMessageConverters.size(): " + converters.size());
+    // unless we uncomment this, our converters are missing - and they will be added to the end
+//    converters.addAll(crazy1Converters);
   }
 
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-    for (MediaType mediaType : YAML_MEDIA_TYPES) {
-      configurer.mediaType(mediaType.getSubtype(), mediaType);
-    }
-    configurer.mediaType(CRAZY1.getSubtype(), CRAZY1);
-    configurer.defaultContentType(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
+    configurer.defaultContentType(MediaType.APPLICATION_JSON);
   }
 
-  private static class Crazy1Converter<T> extends AbstractHttpMessageConverter<T> {
+  @Bean
+  public Crazy1Converter<String> crazyStringConverter() {
+    System.out.println("crazyStringConverter");
+    return new Crazy1Converter<>("first", String.class);
+  }
+
+  @Bean
+  public Crazy1Converter<Object> crazyObjectConverter() {
+    System.out.println("crazyObjectConverter");
+    return new Crazy1Converter<>("second", Object.class);
+  }
+
+  static class Crazy1Converter<T> extends AbstractHttpMessageConverter<T> {
 
     private final String name;
     private final Class<T> supportedClass;

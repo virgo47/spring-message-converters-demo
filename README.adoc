@@ -12,7 +12,6 @@ Less converters are registered and probably more things beyond converter setup a
 
 * `demo2` - `demo1` but with custom `@Configuration` implementing `WebMvcConfigurer` added.
 This one does not disable auto-configuration and more than expected number of converters are used.
-There is
 
 * `demo2b` - like `demo2`, but this time we use `@EnableWebMvc` and take full responsibility for the setup.
 
@@ -21,3 +20,6 @@ There is
 * `demo2d` - like `demo2c`, converters as `@Bean`s but with auto-configuration, config class can get very small now.
 
 * `demo3` - similar to `demo2`, this time the configuration extends `WebMvcConfigurationSupport`.
+The behaviour changes are bigger than expected.
+
+* `demo3` - still extending `WebMvcConfigurationSupport`, this time we manually add converters.
