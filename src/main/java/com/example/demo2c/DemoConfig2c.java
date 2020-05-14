@@ -44,7 +44,7 @@ public class DemoConfig2c implements WebMvcConfigurer {
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
     configurer.mediaType(CRAZY1.getSubtype(), CRAZY1);
-    // without this XML default
+    // without this XML is default
     configurer.defaultContentType(CRAZY1, MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
   }
 

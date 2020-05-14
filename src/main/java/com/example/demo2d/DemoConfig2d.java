@@ -33,8 +33,8 @@ public class DemoConfig2d implements WebMvcConfigurer {
     return new Crazy1Converter<>("second", Object.class);
   }
 
-  // Only needed if we want to adjust default content type order.
-  // No mediaType() mapping is needed, this is already taken care of by auto-config.
+  // Only needed if we want to adjust default content type order
+  // or add support for media type via path extension or a query parameter.
   /*
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {

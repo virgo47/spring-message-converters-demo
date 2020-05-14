@@ -19,8 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * {@code @EnableWebMvc} on the main class (also a configuration) disables {@code WebMvcAutoConfiguration}.
  * With this annotation we declared we want to take the full responsibility for the configuration.
- * Whether default converters are added depends on whether {@link #configureContentNegotiation}
- * or {@link #extendHandlerExceptionResolvers} is used - see their javadocs for details.
+ * Whether default converters are added depends on whether {@link #configureMessageConverters}
+ * or {@link #extendMessageConverters} is used - see their javadocs for details.
  */
 @Configuration
 public class DemoConfig2b implements WebMvcConfigurer {
@@ -41,6 +41,7 @@ public class DemoConfig2b implements WebMvcConfigurer {
 
   @Override
   public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    // mediaType() is not even necessary if use Accept header, see javadoc for more
     configurer.mediaType(CRAZY1.getSubtype(), CRAZY1);
     // uncomment this to use the content type as default
 //    configurer.defaultContentType(CRAZY1);

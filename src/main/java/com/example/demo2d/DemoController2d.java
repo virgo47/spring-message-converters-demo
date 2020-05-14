@@ -52,6 +52,19 @@ public class DemoController2d {
       toStrings(requestMappingHandlerAdapter.getMessageConverters()));
   }
 
+  // for HTTP 406 demo: http -v :8080/config2 "Accept: application/json"
+  // note that "http -j" means "Accept: application/json, */*" and would return XML thanks to */*
+  @GetMapping(value = "/config2", produces = "text/xml")
+  public Map<?, ?> configXmlOnly() {
+    return Map.of(
+      "configurers",
+      toStrings(configurers),
+      "converters",
+      toStrings(converters),
+      "requestMappingHandlerAdapter-converters",
+      toStrings(requestMappingHandlerAdapter.getMessageConverters()));
+  }
+
   private Object toStrings(Collection<?> collection) {
     return collection != null
       ? collection.stream().map(Object::toString).collect(Collectors.toList())

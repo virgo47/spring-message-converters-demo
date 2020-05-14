@@ -22,4 +22,5 @@ This one does not disable auto-configuration and more than expected number of co
 * `demo3` - similar to `demo2`, this time the configuration extends `WebMvcConfigurationSupport`.
 The behaviour changes are bigger than expected.
 
-* `demo3` - still extending `WebMvcConfigurationSupport`, this time we manually add converters.
+* `demo3b` - still extending `WebMvcConfigurationSupport`, this time we manually add converters,
+both ours and the default ones.

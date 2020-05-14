@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class DemoConfigYaml extends WebMvcConfigurationSupport {
 
+  // there is no official media type registration, so we try this overkill
   private static final List<MediaType> YAML_MEDIA_TYPES = List.of(
     MediaType.valueOf("text/yaml"), MediaType.valueOf("text/yml"),
     MediaType.valueOf("text/x-yaml"), MediaType.valueOf("text/vnd-yaml"),
