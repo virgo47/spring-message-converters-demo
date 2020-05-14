@@ -1,5 +1,14 @@
 = Spring HTTP message converters demo
 
+[NOTE]
+This is not normal Spring Boot application, it does not package as one,
+as it contains multiple main classes (small demos).
+
+To run the dmoes use your IDE, or - if CLI is your only option - try:
+----
+./mvnw exec:java -Dstart-class=com.example.demo1.DemoApp1
+----
+
 This repository contains multiple miniature Spring Boot applications in separate sub-packages:
 
 * `demo1` - default Spring Boot + Web MVC auto-configuration with a few REST endpoints.

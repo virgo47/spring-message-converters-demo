@@ -45,6 +45,10 @@
     </dependency>
   </dependencies>
 
+  <!--
+  Disabled as this contains multiple main classes (small demos).
+  Run with (change main class as needed) - or use IDE:
+  ./mvnw exec:java -Dstart-class=com.example.demo1.DemoApp1
   <build>
     <plugins>
       <plugin>
@@ -53,5 +57,6 @@
       </plugin>
     </plugins>
   </build>
+  -->
 
 </project>
